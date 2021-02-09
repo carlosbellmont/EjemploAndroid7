@@ -2,8 +2,10 @@ package com.cbellmont.ejemploandroid7
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,8 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         savedInstanceState?.run {
             Log.d("MiTAG", "onSaveInstanceState ha sido leido")
-            getString(TAG_USER_TEXT)?.let {
+            getString("HOLA")?.let {
                 etText.setText(it)
+            }
+            getInt("MiEntero")?.let{
+                Toast.makeText(this@MainActivity, "He recibido un $it", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -42,7 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d("MiTAG", "onSaveInstanceState ha sido llamada")
-        outState.putString(TAG_USER_TEXT, etText.text.toString())
+        outState.putString("HOLA", etText.text.toString())
+        outState.putInt("MiEntero", Random.nextInt())
         super.onSaveInstanceState(outState)
     }
 }
